@@ -7,7 +7,8 @@ export async function post({ request }) {
 	const { events } = await request.json();
 
 	for (let i = 0; i < events.length; i++) {
-		const { channel, data, event, socket_id: socketId } = events[i];
+		const { channel, data: raw, event, socket_id: socketId } = events[i];
+		const data = JSON.parse(raw);
 		const output = { channel };
 
 		console.log('event %O', events[i]);
