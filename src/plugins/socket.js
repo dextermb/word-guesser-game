@@ -16,7 +16,7 @@ const config = {
 			let bits = null;
 
 			async function setup() {
-				word = await random('static');
+				word = await random();
 				word = word.toLowerCase();
 				bits = word.split('');
 
@@ -34,12 +34,30 @@ const config = {
 			});
 
 			socket.on('word:guess', ({ row, guess }) => {
-				const result = guess.map((g, i) => g === bits[i]);
+				const filtered = [...bits];
+
+				const result = guess.map((g, i) => {
+					if (g === bits[i]) {
+						filtered[i] = null;
+
+						return 2;
+					}
+
+					if (filtered.includes(g)) {
+						const bi = filtered.findIndex((b) => b === g);
+
+						filtered[bi] = null;
+
+						return 1;
+					}
+
+					return 0;
+				});
 
 				socket.emit('word:guess', {
 					row,
 					result,
-					won: result.filter((r) => r).length === bits.length
+					won: result.filter((r) => r === 2).length === bits.length
 				});
 			});
 

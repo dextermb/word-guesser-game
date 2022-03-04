@@ -6,7 +6,7 @@
 
 	import Button from '$lib/components/Button.svelte';
 
-	const TOTAL_ROWS = 5;
+	const TOTAL_ROWS = 10;
 	let TOTAL_COLS = 1;
 
 	const ARR_TOTAL_ROWS = TOTAL_ROWS - 1;
@@ -75,7 +75,7 @@
 			const [, guessed] = rows[ARR_CURRENT_ROW][ARR_CURRENT_COL];
 
 			// If already guessed than stop
-			if (typeof guessed === 'boolean') {
+			if (typeof guessed === 'number') {
 				return;
 			}
 
@@ -144,8 +144,9 @@
 					class={c(
 						'w-10 h-10 rounded-md shadow-sm border-b-2 flex justify-center items-center flex-col',
 						column[1] === null && 'bg-gray-100 border-b-gray-300',
-						column[1] === false && 'bg-orange-100 border-b-orange-300 text-orange-700',
-						column[1] === true && 'bg-green-100 border-b-green-300 text-green-700'
+						column[1] === 0 && 'bg-red-100 border-b-red-300 text-red-700',
+						column[1] === 1 && 'bg-orange-100 border-b-orange-300 text-orange-700',
+						column[1] === 2 && 'bg-green-100 border-b-green-300 text-green-700'
 					)}
 				>
 					<p class="text-sm">{column[0]}</p>
@@ -153,11 +154,12 @@
 						class={c(
 							'text-xs',
 							column[1] === null && 'text-gray-400',
-							column[1] === false && 'text-orange-400',
-							column[1] === true && 'text-green-400'
+							column[1] === 0 && 'text-red-400',
+							column[1] === 1 && 'text-orange-400',
+							column[1] === 2 && 'text-green-400'
 						)}
 					>
-						{ri},{ci}
+						{ri + 1},{ci + 1}
 					</p>
 				</div>
 			{/each}
