@@ -10,6 +10,8 @@ export async function post({ request }) {
 		const { channel, data, event, socket_id: socketId } = events[i];
 		const output = { channel };
 
+		console.log('event %O', events[i]);
+
 		const session = await Session.findOneAndUpdate(
 			{ socketId },
 			{ socketId },
@@ -28,6 +30,8 @@ export async function post({ request }) {
 		} else {
 			word = session.word;
 		}
+
+		console.log('session %O', session);
 
 		switch (event) {
 			case 'client-new-word':
@@ -56,9 +60,12 @@ export async function post({ request }) {
 					won
 				};
 
-				console.log(output);
+				console.log('output %O', output);
 
 				break;
+			default:
+				output.event = 'server-unknown-event';
+				output.body = 'This event is not supported';
 		}
 
 		await pusher.trigger(output.channel, output.event, output.body);
