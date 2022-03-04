@@ -94,6 +94,6 @@ export function guess(word, guess) {
 
 	return {
 		result,
-		won: bits.length === filtered.filter((bit) => bit === 2).length
+		won: bits.length === result.filter((bit) => bit === 2).length
 	};
 }
