@@ -8,7 +8,7 @@ export async function post({ request }) {
 	for (let i = 0; i < events.length; i++) {
 		const { channel, data, event, socket_id: socketId } = events[i];
 
-		let output = {};
+		let output = { channel };
 
 		switch (event) {
 			case 'client-new-word':
@@ -20,7 +20,9 @@ export async function post({ request }) {
 
 		console.log(output);
 
-		await pusher.trigger(channel, output.event, output.body, { socket_id: socketId });
+		console.log(
+			await pusher.trigger(output.channel, output.event, output.body, { socket_id: socketId })
+		);
 	}
 
 	return {
