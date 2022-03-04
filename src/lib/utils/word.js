@@ -92,6 +92,14 @@ export function guess(word, guess) {
 			return result;
 		});
 
+	console.log('word %s -> %O %s', word, bits, bits.length);
+	console.log(
+		'results %O -> %O %s',
+		result,
+		result.filter((bit) => bit === 2),
+		result.filter((bit) => bit === 2).length
+	);
+
 	return {
 		result,
 		won: bits.length === result.filter((bit) => bit === 2).length
