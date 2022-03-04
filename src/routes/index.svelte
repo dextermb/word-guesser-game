@@ -23,11 +23,11 @@
 	}
 
 	function restart() {
-		channel.trigger('client-new-word');
+		channel.trigger('client-new-word', {});
 	}
 
 	function reveal() {
-		channel.trigger('client-reveal-word');
+		channel.trigger('client-reveal-word', {});
 	}
 
 	onMount(() => {
