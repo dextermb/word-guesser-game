@@ -6,6 +6,7 @@ specifiers:
   autoprefixer: ^10.4.2
   cheerio: ^1.0.0-rc.10
   clsx: ^1.1.1
+  dotenv: ^16.0.0
   eslint: ^7.32.0
   eslint-config-prettier: ^8.3.0
   eslint-plugin-svelte3: ^3.2.1
@@ -30,6 +31,7 @@ devDependencies:
   '@sveltejs/kit': 1.0.0-next.291_svelte@3.46.4
   autoprefixer: 10.4.2_postcss@8.4.7
   clsx: 1.1.1
+  dotenv: 16.0.0
   eslint: 7.32.0
   eslint-config-prettier: 8.4.0_eslint@7.32.0
   eslint-plugin-svelte3: 3.4.1_eslint@7.32.0+svelte@3.46.4
@@ -584,6 +586,11 @@ packages:
       docopt: 0.6.2
       underscore-keypath: 0.0.22
     dev: false
+
+  /dotenv/16.0.0:
+    resolution: {integrity: sha512-qD9WU0MPM4SWLPJy/r2Be+2WgQj8plChsyrCNQzW/0WjvcJQiKQJ9mH3ZgB3fxbUUxgc/11ZJ0Fi5KiimWGz2Q==}
+    engines: {node: '>=12'}
+    dev: true
 
   /electron-to-chromium/1.4.75:
     resolution: {integrity: sha512-LxgUNeu3BVU7sXaKjUDD9xivocQLxFtq6wgERrutdY/yIOps3ODOZExK1jg8DTEg4U8TUCb5MLGeWFOYuxjF3Q==}

@@ -34,7 +34,11 @@
 		channel = pusher.subscribe('private-game');
 
 		channel.bind('pusher:subscription_succeeded', () => {
-			channel.trigger('client-new-word');
+			channel.trigger('client-new-word', {});
+		});
+
+		channel.bind('pusher:connection_failed', (data) => {
+			alert(`Unable to connect to server: ${JSON.stringify(data)}`);
 		});
 
 		channel.bind('server-word-length', (data) => {
