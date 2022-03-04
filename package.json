@@ -29,6 +29,8 @@
 	},
 	"dependencies": {
 		"cheerio": "^1.0.0-rc.10",
+		"mongodb": "^4.4.1",
+		"mongoose": "^6.2.4",
 		"pkg-dir": "^6.0.1",
 		"pusher": "^5.0.1",
 		"user-agents": "^1.0.943"
