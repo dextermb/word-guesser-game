@@ -60,10 +60,6 @@ const config = {
 					won: result.filter((r) => r === 2).length === bits.length
 				});
 			});
-
-			socket.on('disconnect', () => {
-				console.log('A user has disconnected');
-			});
 		});
 	}
 };
