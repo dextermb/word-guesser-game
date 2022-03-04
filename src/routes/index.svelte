@@ -2,6 +2,7 @@
 	// @ts-nocheck
 	import { onMount } from 'svelte';
 	import { Icon, Eye, Refresh } from 'svelte-heroicons';
+	import { v4 as uuid } from 'uuid';
 
 	import pusher from '$lib/services/client/pusher.js';
 
@@ -31,7 +32,7 @@
 	}
 
 	onMount(() => {
-		channel = pusher.subscribe('private-game');
+		channel = pusher.subscribe(`private-game-${uuid()}`);
 
 		channel.bind('pusher:subscription_succeeded', () => {
 			channel.trigger('client-new-word', {});

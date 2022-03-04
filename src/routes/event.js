@@ -6,7 +6,7 @@ export async function post({ request }) {
 	const { events } = await request.json();
 
 	for (let i = 0; i < events.length; i++) {
-		const { channel, data, event, socket_id: socketId } = events[i];
+		const { channel, data, event } = events[i];
 
 		let output = { channel };
 
@@ -20,9 +20,7 @@ export async function post({ request }) {
 
 		console.log(output);
 
-		console.log(
-			await pusher.trigger(output.channel, output.event, output.body, { socket_id: socketId })
-		);
+		console.log(await pusher.trigger(output.channel, output.event, output.body));
 	}
 
 	return {
