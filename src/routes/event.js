@@ -11,8 +11,6 @@ export async function post({ request }) {
 		const data = JSON.parse(raw);
 		const output = { channel };
 
-		console.log('event %O', events[i]);
-
 		const session = await Session.findOneAndUpdate(
 			{ socketId },
 			{ socketId },
@@ -31,8 +29,6 @@ export async function post({ request }) {
 		} else {
 			word = session.word;
 		}
-
-		console.log('session %O', session);
 
 		switch (event) {
 			case 'client-new-word':
@@ -60,8 +56,6 @@ export async function post({ request }) {
 					result,
 					won
 				};
-
-				console.log('output %O', output);
 
 				break;
 			default:
