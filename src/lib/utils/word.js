@@ -56,6 +56,7 @@ export async function random(source = 'dynamic') {
 	switch (source) {
 		case 'static':
 			word = await staticRandom();
+			break;
 		case 'dynamic':
 		default:
 			word = await dynamicRandom();
