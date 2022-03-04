@@ -63,3 +63,31 @@ export async function random(source = 'dynamic') {
 
 	return word;
 }
+
+export function guess(word, guess) {
+	const bits = word.split('');
+	const filtered = [...bits];
+
+	const result = guess.map((g, i) => {
+		if (g === bits[i]) {
+			filtered[i] = null;
+
+			return 2;
+		}
+
+		if (filtered.includes(g)) {
+			const bi = filtered.findIndex((b) => b === g);
+
+			filtered[bi] = null;
+
+			return 1;
+		}
+
+		return 0;
+	});
+
+	return {
+		result,
+		won: bits.length === filtered.filter((b) => b === 2).length
+	};
+}
