@@ -33,6 +33,10 @@
 	onMount(() => {
 		channel = pusher.subscribe('private-game');
 
+		channel.bind('pusher:subscription_succeeded', () => {
+			channel.trigger('client-new-word');
+		});
+
 		channel.bind('server-word-length', (data) => {
 			totalCols = data;
 			currentRow = 0;
