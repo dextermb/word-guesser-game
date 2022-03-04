@@ -68,26 +68,32 @@ export function guess(word, guess) {
 	const bits = word.split('');
 	const filtered = [...bits];
 
-	const result = guess.map((g, i) => {
-		if (g === bits[i]) {
-			filtered[i] = null;
+	const result = guess
+		.map((letter, index) => {
+			if (letter === bits[index]) {
+				filtered[index] = null;
 
-			return 2;
-		}
+				return 2;
+			}
 
-		if (filtered.includes(g)) {
-			const bi = filtered.findIndex((b) => b === g);
+			return 0;
+		})
+		.map((result, index) => {
+			if (result !== 2) {
+				const letter = guess[index];
 
-			filtered[bi] = null;
+				if (filtered.includes(letter)) {
+					filtered[filtered.findIndex((bit) => bit === letter)] = null;
 
-			return 1;
-		}
+					return 1;
+				}
+			}
 
-		return 0;
-	});
+			return result;
+		});
 
 	return {
 		result,
-		won: bits.length === filtered.filter((b) => b === 2).length
+		won: bits.length === filtered.filter((bit) => bit === 2).length
 	};
 }
