@@ -17,6 +17,8 @@ export async function post({ request }) {
 			{ upsert: true }
 		).exec();
 
+		console.log('session %O', session);
+
 		let word = null;
 		let newWord = false;
 
