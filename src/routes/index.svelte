@@ -2,6 +2,9 @@
 	// @ts-nocheck
 	import { onMount } from 'svelte';
 	import { Icon, Eye, Refresh } from 'svelte-heroicons';
+	import { v4 as uuid } from 'uuid';
+
+	import pusher from '$lib/services/client/pusher.js';
 
 	import Button from '$lib/components/Button.svelte';
 	import Board from '$lib/components/Board.svelte';
@@ -11,27 +14,35 @@
 	let currentRow = 0;
 	let currentCol = 0;
 
-	let socket;
+	let channel = null;
 	let rows = [[['', null]]];
 
 	function guess(row) {
 		const guess = rows[row].map((col) => col[0]);
 
-		socket.emit('word:guess', { row, guess });
+		channel.trigger('client-guess-word', { row, guess });
 	}
 
 	function restart() {
-		socket.emit('word:new');
+		channel.trigger('client-new-word', {});
 	}
 
 	function reveal() {
-		socket.emit('word:reveal');
+		channel.trigger('client-reveal-word', {});
 	}
 
 	onMount(() => {
-		socket = io();
+		channel = pusher.subscribe(`private-game-${uuid()}`);
 
-		socket.on('word:length', (data) => {
+		channel.bind('pusher:subscription_succeeded', () => {
+			channel.trigger('client-new-word', {});
+		});
+
+		channel.bind('pusher:connection_failed', (data) => {
+			alert(`Unable to connect to server: ${JSON.stringify(data)}`);
+		});
+
+		channel.bind('server-word-length', (data) => {
 			totalCols = data;
 			currentRow = 0;
 			currentCol = 0;
@@ -45,7 +56,7 @@
 				);
 		});
 
-		socket.on('word:guess', (data) => {
+		channel.bind('server-guess-word', (data) => {
 			data.result.forEach((result, i) => {
 				rows[data.row][i] = [rows[data.row][i][0], result];
 			});
@@ -55,11 +66,9 @@
 			}
 		});
 
-		socket.on('word:reveal', (data) => {
+		channel.bind('server-reveal-word', (data) => {
 			alert(data);
 		});
-
-		return () => socket.close();
 	});
 </script>
 
