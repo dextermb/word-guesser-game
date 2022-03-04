@@ -47,7 +47,7 @@ export async function post({ request }) {
 
 				break;
 			case 'client-guess-word':
-				const { result, won } = guess(word, data);
+				const { result, won } = guess(word, data.guess);
 
 				output.event = 'server-guess-word';
 				output.body = {
@@ -55,6 +55,10 @@ export async function post({ request }) {
 					result,
 					won
 				};
+
+				console.log(output);
+
+				break;
 		}
 
 		await pusher.trigger(output.channel, output.event, output.body);
