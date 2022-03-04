@@ -20,7 +20,7 @@
 	function guess(row) {
 		const guess = rows[row].map((col) => col[0]);
 
-		channel.trigger('client-word-guess', { row, guess });
+		channel.trigger('client-guess-word', { row, guess });
 	}
 
 	function restart() {

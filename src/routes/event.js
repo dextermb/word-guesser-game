@@ -46,10 +46,10 @@ export async function post({ request }) {
 				output.body = word;
 
 				break;
-			case 'client-word-guess':
+			case 'client-guess-word':
 				const { result, won } = guess(word, data);
 
-				output.event = 'server-word-guess';
+				output.event = 'server-guess-word';
 				output.body = {
 					row: data.row,
 					result,
